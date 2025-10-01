@@ -1,0 +1,15 @@
+appSets:
+  - name : ${var.appset_name}
+    namespace: argocd
+    githubOrg: ${var.github_org}
+    chartPath: "deploy/charts/app"
+    chartRepo: ${var.chart_repo}
+    chartName: ${var.chart_name}
+    chartVersion: ${var.chart_version}
+    valueFiles:
+      - $values/deploy/environments/dev/values.yaml
+    filters:
+      - branchMatch: "^feature/.*$"
+        repositoryMatch: "^.*-gitops$"
+        pathsExist:
+          - "deploy/environments/dev/values.yaml"
